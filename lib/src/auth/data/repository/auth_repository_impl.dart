@@ -41,4 +41,9 @@ class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
       return data;
     });
   }
+
+  @override
+  Future<void> logout() async {
+    await clearTokens();
+  }
 }

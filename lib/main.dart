@@ -1,8 +1,7 @@
 import 'package:auth_flow_app/core/di/service_locator.dart';
 import 'package:auth_flow_app/core/theme/app_theme.dart';
-import 'package:auth_flow_app/src/auth/presentation/ui/auth_screen.dart';
-
-import 'package:auth_flow_app/src/auth/presentation/viewmodel/auth_viewmodel.dart';
+import 'package:auth_flow_app/src/splash/presentation/ui/splash_screen.dart';
+import 'package:auth_flow_app/src/splash/presentation/viewmodel/splash_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
@@ -21,8 +20,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<AuthViewModel>(
-          create: (_) => locator<AuthViewModel>(),
+        ChangeNotifierProvider<SplashViewModel>(
+          create: (_) => locator<SplashViewModel>(),
         ),
       ],
       child: MaterialApp(
@@ -31,7 +30,7 @@ class MyApp extends StatelessWidget {
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
         themeMode: ThemeMode.system,
-        home: const AuthScreen(),
+        home: const SplashScreen(),
       ),
     );
   }

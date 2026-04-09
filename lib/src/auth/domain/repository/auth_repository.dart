@@ -6,4 +6,5 @@ import '../../data/models/signup/signup_response.dart';
 abstract class AuthRepository {
   Future<SignInResponse> login(SignInRequest request);
   Future<SignUpResponse> signup(SignUpRequest request);
+  Future<void> logout();
 }
