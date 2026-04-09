@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   // Core / Branding Colors
-  static const Color primary = Color(0xFF5B6CFF); // modern soft blue
-  static const Color primaryLight = Color(0xFF8AB4F8);
+  static const Color primary = Colors.blue; // modern soft blue
+  static const Color primaryLight = Color.fromARGB(255, 204, 220, 247);
   static const Color primaryDark = Color(0xFF003366);
   static const Color accent = Color(0xFFE6E6FA); // lavender
 
