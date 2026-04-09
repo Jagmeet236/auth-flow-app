@@ -1,5 +1,6 @@
 import 'package:auth_flow_app/core/di/service_locator.dart';
 import 'package:auth_flow_app/core/theme/app_theme.dart';
+import 'package:auth_flow_app/src/auth/presentation/ui/auth_screen.dart';
 
 import 'package:auth_flow_app/src/auth/presentation/viewmodel/auth_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
         themeMode: ThemeMode.system,
+        home: const AuthScreen(),
       ),
     );
   }

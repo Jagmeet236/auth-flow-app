@@ -1,18 +1,33 @@
 import 'package:hive/hive.dart';
 
 mixin TokenStorage {
+  static const _boxName = 'authBox';
+  static const _accessTokenKey = 'accessToken';
+  static const _refreshTokenKey = 'refreshToken';
+
   Future<void> saveAccessToken(String accessToken) async {
-    var box = await Hive.openBox('authBox');
-    await box.put('accessToken', accessToken);
+    final box = await Hive.openBox(_boxName);
+    await box.put(_accessTokenKey, accessToken);
   }
 
   Future<String?> getAccessToken() async {
-    var box = await Hive.openBox('authBox');
-    return box.get('accessToken');
+    final box = await Hive.openBox(_boxName);
+    return box.get(_accessTokenKey) as String?;
   }
 
-  Future<void> clearTokens() async {
-    var box = await Hive.openBox('authBox');
-    await box.delete('accessToken');
+  Future<void> saveRefreshToken(String refreshToken) async {
+    final box = await Hive.openBox(_boxName);
+    await box.put(_refreshTokenKey, refreshToken);
+  }
+
+  Future<String?> getRefreshToken() async {
+    final box = await Hive.openBox(_boxName);
+    return box.get(_refreshTokenKey) as String?;
+  }
+
+  Future<void> clearAllTokens() async {
+    final box = await Hive.openBox(_boxName);
+    await box.delete(_accessTokenKey);
+    await box.delete(_refreshTokenKey);
   }
 }

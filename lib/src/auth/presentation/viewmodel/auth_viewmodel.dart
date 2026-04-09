@@ -5,16 +5,13 @@ import '../../domain/repository/auth_repository.dart';
 import '../navigator/auth_navigator.dart';
 
 class AuthViewModel extends BaseViewModel<AuthNavigator, AuthRepository> {
-
   Future<void> login(String username, String password) async {
     setLoading(true);
     setError(null);
 
     try {
       final request = SignInRequest(username: username, password: password);
-      final response = await repository.login(request);
-
-      await saveAccessToken(response.accessToken);
+      await repository.login(request);
 
       setSuccess('Welcome back!');
       navigator?.navigateToHomeScreen();
@@ -25,13 +22,14 @@ class AuthViewModel extends BaseViewModel<AuthNavigator, AuthRepository> {
     }
   }
 
-  Future<void> signup(String email, String password) async {
+  Future<void> signup(String username, String password) async {
     setLoading(true);
     setError(null);
 
     try {
-      final request = SignUpRequest(email: email, password: password);
+      final request = SignUpRequest(password: password, username: username);
       await repository.signup(request);
+
       setSuccess('Account created successfully!');
       navigator?.navigateToHomeScreen();
     } catch (e) {

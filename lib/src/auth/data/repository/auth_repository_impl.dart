@@ -13,7 +13,15 @@ class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
         '/v1/auth/signin',
         data: request.toJson(),
       );
-      return SignInResponse.fromJson(response.data);
+
+      final data = SignInResponse.fromJson(response.data);
+
+      await saveTokens(
+        accessToken: data.accessToken,
+        refreshToken: data.refreshToken,
+      );
+
+      return data;
     });
   }
 
@@ -24,7 +32,13 @@ class AuthRepositoryImpl extends BaseRepository implements AuthRepository {
         '/v1/auth/signup',
         data: request.toJson(),
       );
-      return SignUpResponse.fromJson(response.data);
+      final data = SignUpResponse.fromJson(response.data);
+
+      await saveTokens(
+        accessToken: data.accessToken,
+        refreshToken: data.refreshToken,
+      );
+      return data;
     });
   }
 }

@@ -1,11 +1,12 @@
 class SignUpRequest {
-  final String email;
+  final String username;
   final String password;
 
-  SignUpRequest({required this.email, required this.password});
+  SignUpRequest({required this.username, required this.password});
 
   Map<String, dynamic> toJson() => {
-        'email': email,
+        'username': username,
         'password': password,
       };
 }
+
