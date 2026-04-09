@@ -1,5 +1,6 @@
 import 'package:auth_flow_app/src/auth/data/models/signin/signin_request.dart';
 import 'package:auth_flow_app/src/auth/data/models/signup/signup_request.dart';
+import 'package:flutter/foundation.dart';
 import '../../../../../core/base/base_viewmodel.dart';
 import '../../domain/repository/auth_repository.dart';
 import '../navigator/auth_navigator.dart';
@@ -34,6 +35,23 @@ class AuthViewModel extends BaseViewModel<AuthNavigator, AuthRepository> {
       navigator?.navigateToHomeScreen();
     } catch (e) {
       setError(e.toString());
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  Future<void> googleLogin() async {
+    setLoading(true);
+    setError(null);
+    try {
+      await repository.googleLogin();
+      setSuccess('Welcome back!');
+      navigator?.navigateToHomeScreen();
+    } catch (e) {
+      setError(e.toString());
+      if (kDebugMode) {
+        print('Google login failed: $e');
+      }
     } finally {
       setLoading(false);
     }

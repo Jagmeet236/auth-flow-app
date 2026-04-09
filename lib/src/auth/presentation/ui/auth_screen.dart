@@ -79,7 +79,7 @@ class AuthScreenState
                                 children: [
                                   SocialButton(
                                     onPressed: () {
-                                      // TODO: Implement Google Sign In
+                                      viewModel.googleLogin();
                                     },
                                   ),
 

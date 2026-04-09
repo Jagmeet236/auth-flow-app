@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "118144579846",
+    "project_id": "auth-flow-86243",
+    "storage_bucket": "auth-flow-86243.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118144579846:android:4f79dd3ad7679a4b914687",
+        "android_client_info": {
+          "package_name": "com.jagmeet.auth_flow_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDv8qwv9S9hutX4c6e-j14CfV5GIjRVPSM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
