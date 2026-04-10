@@ -1,12 +1,10 @@
+import 'package:auth_flow_app/core/constants/app_strings.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../../../core/base/base_state.dart';
-import '../../../../core/di/service_locator.dart';
 import '../../domain/repository/splash_repository.dart';
 import '../navigator/splash_navigator.dart';
 import '../viewmodel/splash_viewmodel.dart';
 import '../../../auth/presentation/ui/auth_screen.dart';
-import '../../../auth/presentation/viewmodel/auth_viewmodel.dart';
 import '../../../home/presentation/ui/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -16,10 +14,15 @@ class SplashScreen extends StatefulWidget {
   SplashScreenState createState() => SplashScreenState();
 }
 
-class SplashScreenState 
-    extends BaseState<SplashScreen, SplashViewModel, SplashNavigator, SplashRepository> 
+class SplashScreenState
+    extends
+        BaseState<
+          SplashScreen,
+          SplashViewModel,
+          SplashNavigator,
+          SplashRepository
+        >
     implements SplashNavigator {
-
   @override
   void initState() {
     super.initState();
@@ -34,12 +37,8 @@ class SplashScreenState
       backgroundColor: Colors.white,
       body: Center(
         child: Text(
-          'Welcome',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
+          AppStrings.splashTitle,
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -47,22 +46,15 @@ class SplashScreenState
 
   @override
   void navigateToAuthScreen() {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (_) => ChangeNotifierProvider<AuthViewModel>(
-          create: (_) => locator<AuthViewModel>(),
-          child: const AuthScreen(),
-        ),
-      ),
-    );
+    Navigator.of(
+      context,
+    ).pushReplacement(MaterialPageRoute(builder: (_) => const AuthScreen()));
   }
 
   @override
   void navigateToHomeScreen() {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (_) => const HomeScreen(),
-      ),
-    );
+    Navigator.of(
+      context,
+    ).pushReplacement(MaterialPageRoute(builder: (_) => const HomeScreen()));
   }
 }
