@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:auth_flow_app/core/base/base_navigator.dart';
 import 'package:auth_flow_app/core/base/base_viewmodel.dart';
+import 'package:auth_flow_app/core/di/service_locator.dart';
 import 'package:auth_flow_app/core/widgets/connectivity_wrapper.dart';
 import 'package:auth_flow_app/core/utils/app_snackbars.dart';
 
@@ -10,13 +11,14 @@ abstract class BaseState<
     VM extends BaseViewModel<N, R>,
     N extends BaseNavigator,
     R> extends State<W> implements BaseNavigator {
-  
+
   late VM viewModel;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    viewModel = context.read<VM>();
+  void initState() {
+    super.initState();
+    // Get the ViewModel directly from GetIt — no Provider ancestor required.
+    viewModel = locator<VM>();
     viewModel.setNavigator(this as N);
   }
 
@@ -25,10 +27,14 @@ abstract class BaseState<
 
   @override
   Widget build(BuildContext context) {
-    // The ConnectivityWrapper is applied at the root of every screen
-    // inheriting from BaseState.
-    return ConnectivityWrapper(
-      child: buildScreen(context),
+    // BaseState self-provides the ViewModel to its own subtree.
+    // This means no ChangeNotifierProvider wrapping is needed at callsites
+    // and no MultiProvider in main.dart is needed either.
+    return ChangeNotifierProvider<VM>.value(
+      value: viewModel,
+      child: ConnectivityWrapper(
+        child: buildScreen(context),
+      ),
     );
   }
 

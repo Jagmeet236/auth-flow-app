@@ -1,33 +1,29 @@
-import 'package:hive/hive.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 mixin TokenStorage {
-  static const _boxName = 'authBox';
   static const _accessTokenKey = 'accessToken';
   static const _refreshTokenKey = 'refreshToken';
 
+  static const FlutterSecureStorage _storage = FlutterSecureStorage();
+
   Future<void> saveAccessToken(String accessToken) async {
-    final box = await Hive.openBox(_boxName);
-    await box.put(_accessTokenKey, accessToken);
+    await _storage.write(key: _accessTokenKey, value: accessToken);
   }
 
   Future<String?> getAccessToken() async {
-    final box = await Hive.openBox(_boxName);
-    return box.get(_accessTokenKey) as String?;
+    return _storage.read(key: _accessTokenKey);
   }
 
   Future<void> saveRefreshToken(String refreshToken) async {
-    final box = await Hive.openBox(_boxName);
-    await box.put(_refreshTokenKey, refreshToken);
+    await _storage.write(key: _refreshTokenKey, value: refreshToken);
   }
 
   Future<String?> getRefreshToken() async {
-    final box = await Hive.openBox(_boxName);
-    return box.get(_refreshTokenKey) as String?;
+    return _storage.read(key: _refreshTokenKey);
   }
 
   Future<void> clearAllTokens() async {
-    final box = await Hive.openBox(_boxName);
-    await box.delete(_accessTokenKey);
-    await box.delete(_refreshTokenKey);
+    await _storage.delete(key: _accessTokenKey);
+    await _storage.delete(key: _refreshTokenKey);
   }
 }
